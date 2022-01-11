@@ -1,0 +1,21 @@
+.container {
+  height: 1000px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.square {
+  position: relative;
+  width: 30vw;
+  height: 30vw;
+  background-color: #ccc;
+}
+.square.clicked {
+  background-color: #00ff00;
+}
+.square.triple {
+  background-color: #ff0000;
+}
+.square:hover {
+  filter: brightness(85%);
+}

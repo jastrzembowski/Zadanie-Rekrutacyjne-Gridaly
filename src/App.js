@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useMemo } from "react";
+import debounce from "lodash.debounce";
+import "./styles.css";
 
-function App() {
+export default function App() {
+  const [clicks, setClicks] = useState(0);
+  const resetState = () => {
+    setClicks(0);
+  };
+
+  const handle = () => {
+    setTimeout(() => {
+      resetState();
+    }, 2000);
+  };
+  const getClasses = (noclicks) => {
+    if (noclicks === 0) {
+      return "square";
+    }
+    if (noclicks >= 3) {
+      return "square triple";
+    }
+    if (noclicks > 0) {
+      return "square clicked";
+    }
+  };
+  const handleClick = () => {
+    setClicks(clicks + 1);
+    debouncedHandler();
+  };
+  const debouncedHandler = useMemo(
+    () => debounce(() => handle(), 300),
+    [clicks]
+  );
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <div className={getClasses(clicks)} onClick={handleClick}></div>
     </div>
   );
 }
-
-export default App;
